@@ -1,5 +1,6 @@
 package ejercicio.dao;
 
+import ejercicio.Conexion;
 import ejercicio.model.Direccion;
 import ejercicio.model.Equipo;
 
@@ -11,26 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EquipoDaoImpl implements EquipoDao{
-    private Conecxion conection = new Conecxion();
-    /*static private String url= "jdbc:mysql://localhost:3306/afa";
-    static private String usr = "root";
-    static private String pwd = "";
-    static private String driver = "com.mysql.cj.jdbc.Driver";
-
-    private void elDriver(){
-        try{
-            Class.forName(driver);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }*/
+    private Conexion conection = new Conexion();
 
     @Override
     public void insert(Equipo equipo) {
         Connection conneccion = null;
         try{
-            //elDriver();
-            conneccion = conection.conection();//DriverManager.getConnection(url, usr, pwd);
+
+            conneccion = conection.conection();
 
             try (Statement instruccion = conneccion.createStatement()){
                 Integer cuitEquipo = equipo.getCuit();
@@ -68,8 +57,8 @@ public class EquipoDaoImpl implements EquipoDao{
     public void insertEquipoConDireccion(Equipo equipo, Direccion direccion) {
         Connection conneccion = null;
         try{
-           // elDriver();
-            conneccion = conection.conection();//DriverManager.getConnection(url, usr, pwd);
+
+            conneccion = conection.conection();
 
             try (Statement instruccion = conneccion.createStatement()){
 

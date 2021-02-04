@@ -1,7 +1,7 @@
 package ejercicio.dao;
 
 
-import ejercicio.dto.HistorialJugadorDto;
+import ejercicio.Conexion;
 import ejercicio.model.HistorialJugador;
 
 import java.sql.Connection;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistorialJugadorImpl implements HistorialJugadorDao{
-    private Conecxion conection = new Conecxion();
+    private Conexion conection = new Conexion();
 
     @Override
     public void insertListaHistoriales(List<HistorialJugador> historiales) {

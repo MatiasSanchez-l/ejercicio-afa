@@ -1,9 +1,9 @@
-package ejercicio.dao;
+package ejercicio;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Conecxion {
+public class Conexion {
     static private String url= "jdbc:mysql://localhost:3306/afa";
     static private String usr = "root";
     static private String pwd = "";

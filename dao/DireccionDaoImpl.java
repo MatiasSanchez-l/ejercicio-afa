@@ -1,17 +1,16 @@
 package ejercicio.dao;
 
+import ejercicio.Conexion;
 import ejercicio.model.Direccion;
-import ejercicio.model.HistorialJugador;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DireccionDaoImpl implements  DireccionDao{
-    private Conecxion conection = new Conecxion();
+    private Conexion conection = new Conexion();
 
     @Override
     public Integer insert(Direccion direccion) {

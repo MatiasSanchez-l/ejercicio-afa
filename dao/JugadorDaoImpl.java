@@ -1,5 +1,6 @@
 package ejercicio.dao;
 
+import ejercicio.Conexion;
 import ejercicio.model.Direccion;
 import ejercicio.model.Jugador;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JugadorDaoImpl implements JugadorDao{
-    private Conecxion conection = new Conecxion();
+    private Conexion conection = new Conexion();
 
     @Override
     public void insert(Jugador jugador) {
