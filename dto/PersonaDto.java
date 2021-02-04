@@ -1,19 +1,12 @@
-package ejercicio;
+package ejercicio.dto;
 
-public abstract class Persona {
+public class PersonaDto {
+
     private String nombre;
     private String apellido;
     private int dni;
     private int telefono;
     private String email;
-
-    public Persona(String nombre, String apellido, int dni, int telefono, String email) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.telefono = telefono;
-        this.email = email;
-    }
 
     public String getNombre() {
         return nombre;

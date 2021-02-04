@@ -1,7 +1,6 @@
-package ejercicio;
+package ejercicio.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Jugador extends Persona{
 

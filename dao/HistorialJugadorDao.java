@@ -1,7 +1,7 @@
 package ejercicio.dao;
 
-import ejercicio.Direccion;
-import ejercicio.HistorialJugador;
+import ejercicio.dto.HistorialJugadorDto;
+import ejercicio.model.HistorialJugador;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ public interface HistorialJugadorDao {
     public void insertHistorialSinFechaFin(HistorialJugador historial);
     public void update(HistorialJugador historial);
     public void read();
-    public void delete(HistorialJugador historial);
+    public void delete(Integer id);
+    public Integer obtenerIdHistorial(HistorialJugador historialJugador);
     public void insertHistorialConFechaFin(HistorialJugador historial);
 }

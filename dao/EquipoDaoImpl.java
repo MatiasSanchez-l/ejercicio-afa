@@ -1,10 +1,9 @@
 package ejercicio.dao;
 
-import ejercicio.Direccion;
-import ejercicio.Equipo;
+import ejercicio.model.Direccion;
+import ejercicio.model.Equipo;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -47,7 +46,7 @@ public class EquipoDaoImpl implements EquipoDao{
                         "presidente_apellido_nombre, categoria)" +
                         "VALUES("+cuitEquipo+",'"+nombreEquipo+"','"+emailEquipo+"',"+telefonoEquipo+",'"+fechaFundacion+"','"+fechaPrimeraDivision+"','" +
                         presidenteANEquipo+"','"+categoriaEquipo+"');";
-                instruccion.executeQuery(sql);
+                instruccion.execute(sql);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -168,8 +167,31 @@ public class EquipoDaoImpl implements EquipoDao{
     }
 
     @Override
-    public void delete(Equipo equipo) {
+    public void delete(Integer cuit) {
+        Connection conneccion = null;
+        try{
+            conneccion = conection.conection();
 
+            try (Statement instruccion = conneccion.createStatement()){
+
+                String sql =  "DELETE FROM equipo WHERE equipo.cuit_equipo = "+ cuit +";";
+                instruccion.execute(sql);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

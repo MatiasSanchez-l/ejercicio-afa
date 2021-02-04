@@ -1,17 +1,11 @@
-package ejercicio;
+package ejercicio.dto;
 
-public class Direccion {
+public class DireccionDto {
+
     private String calle;
     private Integer numero;
     private String localidad;
     private String provincia;
-
-    public Direccion(String calle, int numero, String localidad, String provincia) {
-        this.calle = calle;
-        this.numero = numero;
-        this.localidad = localidad;
-        this.provincia = provincia;
-    }
 
     public String getCalle() {
         return calle;
@@ -21,11 +15,11 @@ public class Direccion {
         this.calle = calle;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
 

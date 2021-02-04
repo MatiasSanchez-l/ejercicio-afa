@@ -1,10 +1,8 @@
-package ejercicio;
+package ejercicio.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class Equipo {
-
+public class EquipoDto {
     private Integer cuit;
     private String nombre;
     private LocalDate fechaFundacion;
@@ -13,17 +11,6 @@ public class Equipo {
     private String email;
     private LocalDate fechaPrimeraDivision;
     private Character categoria;
-
-    public Equipo(Integer cuit, String nombre, LocalDate fechaFundacion, String presidenteNombreApellido, Integer telefono, String email, LocalDate fechaPrimeraDivision, Character categoria) {
-        this.cuit = cuit;
-        this.nombre = nombre;
-        this.fechaFundacion = fechaFundacion;
-        this.presidenteNombreApellido = presidenteNombreApellido;
-        this.telefono = telefono;
-        this.email = email;
-        this.fechaPrimeraDivision = fechaPrimeraDivision;
-        this.categoria = categoria;
-    }
 
     public Integer getCuit() {
         return cuit;
@@ -87,19 +74,5 @@ public class Equipo {
 
     public void setCategoria(Character categoria) {
         this.categoria = categoria;
-    }
-
-    @Override
-    public String toString() {
-        return "Equipo{" +
-                "cuit=" + cuit +
-                ", nombre='" + nombre + '\'' +
-                ", fechaFundacion=" + fechaFundacion +
-                ", presidenteNombreApellido='" + presidenteNombreApellido + '\'' +
-                ", telefono=" + telefono +
-                ", email='" + email + '\'' +
-                ", fechaPrimeraDivision=" + fechaPrimeraDivision +
-                ", categoria=" + categoria +
-                '}';
     }
 }

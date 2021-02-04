@@ -1,35 +1,20 @@
 package ejercicio.dao;
 
-import ejercicio.Direccion;
+import ejercicio.model.Direccion;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DireccionDaoImpl implements  DireccionDao{
     private Conecxion conection = new Conecxion();
 
-    /*static private String url= "jdbc:mysql://localhost:3306/afa";
-    static private String usr = "root";
-    static private String pwd = "";
-    static private String driver = "com.mysql.cj.jdbc.Driver";
-
-    private void elDriver(){
-        try{
-            Class.forName(driver);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }*/
-
     @Override
     public Integer insert(Direccion direccion) {
         Connection conneccion = null;
         Integer resultado=0;
         try{
-            //elDriver();
-            conneccion = conection.conection();//DriverManager.getConnection(url, usr, pwd);
+            conneccion = conection.conection();
 
             try (Statement instruccion = conneccion.createStatement()){
                 String dirCalle = direccion.getCalle();
@@ -73,17 +58,40 @@ public class DireccionDaoImpl implements  DireccionDao{
     }
 
     @Override
-    public void delete(Direccion direccion) {
+    public void delete(Integer id) {
+        Connection conneccion = null;
+        try{
+            conneccion = conection.conection();
 
+            try (Statement instruccion = conneccion.createStatement()){
+
+                String sql =  "DELETE FROM direccion WHERE direccion.id_direccion = "+ id +";";
+                instruccion.execute(sql);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
+
 
     @Override
     public Integer obtenerIdDireccion(Direccion direccion) {
         Connection conneccion = null;
         Integer resultado=0;
         try{
-            //elDriver();
-            conneccion = conection.conection();//DriverManager.getConnection(url, usr, pwd);
+            conneccion = conection.conection();
 
             try (Statement instruccion = conneccion.createStatement()){
                 String dirCalle = direccion.getCalle();

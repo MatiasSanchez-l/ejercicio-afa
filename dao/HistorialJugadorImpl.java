@@ -1,9 +1,8 @@
 package ejercicio.dao;
 
 
-import ejercicio.Direccion;
-import ejercicio.Equipo;
-import ejercicio.HistorialJugador;
+import ejercicio.dto.HistorialJugadorDto;
+import ejercicio.model.HistorialJugador;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -181,7 +180,70 @@ public class HistorialJugadorImpl implements HistorialJugadorDao{
     }
 
     @Override
-    public void delete(HistorialJugador historial) {
+    public void delete(Integer id) {
+        Connection conneccion = null;
+        try{
+            conneccion = conection.conection();
 
+            try (Statement instruccion = conneccion.createStatement()){
+
+                String sql =  "DELETE FROM historial WHERE historial.id_historial = "+ id +";";
+                instruccion.execute(sql);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Override
+    public Integer obtenerIdHistorial(HistorialJugador historialJugador) {
+        Connection conneccion = null;
+        Integer resultado=0;
+        try{
+            conneccion = conection.conection();
+
+            try (Statement instruccion = conneccion.createStatement()){
+                LocalDate fechaInicio = historialJugador.getFechaInicioContrato();
+                String posicion = historialJugador.getPosicion();
+                Integer dniJugador = historialJugador.getDniJugador();
+                Integer cuitEquipo = historialJugador.getCuitEquipo();
+
+                String sql = "SELECT id_historial FROM historial WHERE fecha_inicio = '"+fechaInicio+"' AND posicion LIKE '"+posicion+"' " +
+                        " AND jugador_dni LIKE "+dniJugador+" AND cuit_equipo LIKE "+cuitEquipo+";";
+                ResultSet resultSet = instruccion.executeQuery(sql);
+
+                if(resultSet.next()){
+                    resultado = resultSet.getInt("id_historial");
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return resultado;
     }
 }

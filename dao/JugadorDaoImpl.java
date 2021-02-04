@@ -1,8 +1,7 @@
 package ejercicio.dao;
 
-import ejercicio.Direccion;
-import ejercicio.Equipo;
-import ejercicio.Jugador;
+import ejercicio.model.Direccion;
+import ejercicio.model.Jugador;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -167,7 +166,33 @@ public class JugadorDaoImpl implements JugadorDao{
     }
 
     @Override
-    public void delete(Jugador jugador) {
+    public void delete(Integer dni) {
+        Connection conneccion = null;
+        try{
+            conneccion = conection.conection();
 
+            try (Statement instruccion = conneccion.createStatement()){
+
+                String sqlJugador =   "DELETE FROM jugador WHERE jugador.dni = "+ dni +";";
+                instruccion.execute(sqlJugador);
+
+                String sqlPersona =   "DELETE FROM persona WHERE persona.dni = "+ dni +";";
+                instruccion.execute(sqlPersona);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }
