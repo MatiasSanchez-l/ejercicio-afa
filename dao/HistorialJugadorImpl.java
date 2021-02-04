@@ -125,7 +125,50 @@ public class HistorialJugadorImpl implements HistorialJugadorDao{
 
     @Override
     public void update(HistorialJugador historial) {
+        Connection conneccion = null;
+        try{
+            conneccion = conection.conection();
 
+            try (Statement instruccion = conneccion.createStatement()){
+                LocalDate fechaFin = historial.getFechaFinContrato();
+                LocalDate fechaInicio = historial.getFechaInicioContrato();
+                String posicion = historial.getPosicion();
+                Integer jugadorDni = historial.getDniJugador();
+                Integer equipoCuit = historial.getCuitEquipo();
+                Integer id = this.obtenerIdHistorial(historial);
+                String sql = "";
+
+                if(fechaFin != null){
+                    sql = "UPDATE historial SET fecha_inicio = '" + fechaInicio +
+                            "' , fecha_fin = '" + fechaFin +
+                            "' , posicion = '" + posicion +
+                            "' , jugador_dni = " + jugadorDni +
+                            " , cuit_equipo = " + equipoCuit +
+                            " WHERE id_direccion = " + id;
+                }else{
+                    sql = "UPDATE historial SET fecha_inicio = '" + fechaInicio +
+                            "' , posicion = '" + posicion +
+                            "' , jugador_dni = " + jugadorDni +
+                            " , cuit_equipo = " + equipoCuit +
+                            " WHERE id_direccion = " + id;
+                }
+                instruccion.execute(sql);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

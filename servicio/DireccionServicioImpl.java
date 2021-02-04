@@ -23,12 +23,21 @@ public class DireccionServicioImpl implements DireccionServicio{
 
     @Override
     public void update(DireccionDto direccionDto) {
-
+        Direccion direccion = this.convertirDireccionDtoAModel(direccionDto);
+        try {
+            direccionDao.update(direccion);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void read(DireccionDto direccionDto) {
-
+        try {
+            direccionDao.read();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

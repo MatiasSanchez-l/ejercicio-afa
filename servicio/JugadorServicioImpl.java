@@ -37,8 +37,13 @@ public class JugadorServicioImpl implements JugadorServicio{
     }
 
     @Override
-    public void update(JugadorDto jugadorDto) {
-
+    public void update(JugadorDto jugadorDto, Integer dni) {
+        Jugador jugador = this.convertirJugadorDtoAModel(jugadorDto);
+        try {
+            jugadorDao.update(jugador, dni);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

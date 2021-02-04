@@ -39,7 +39,13 @@ public class HistorialJugadorServicioImpl implements HistorialJugadorServicio{
 
     @Override
     public void update(HistorialJugadorDto historialDto) {
+        HistorialJugador historialJugador = this.convertirHistorialJugadorDtoAModel(historialDto);
 
+        try {
+            historialJugadorDao.update(historialJugador);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

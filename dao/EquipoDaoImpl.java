@@ -108,8 +108,46 @@ public class EquipoDaoImpl implements EquipoDao{
     }
 
     @Override
-    public void update(Equipo equipo) {
+    public void update(Equipo equipo, Integer cuit) {
+        Connection conneccion = null;
+        try{
+            conneccion = conection.conection();
 
+            try (Statement instruccion = conneccion.createStatement()){
+                Integer cuitEquipo = equipo.getCuit();
+                String nombreEquipo = equipo.getNombre();
+                String emailEquipo = equipo.getEmail();
+                Integer telefonoEquipo = equipo.getTelefono();
+                LocalDate fechaFundacion = equipo.getFechaFundacion();
+                LocalDate fechaPrimeraDivision = equipo.getFechaPrimeraDivision();
+                String presidenteANEquipo = equipo.getPresidenteNombreApellido();
+                Character categoriaEquipo = equipo.getCategoria();
+
+                String sql = "UPDATE equipo SET cuit_equipo = " + cuitEquipo +
+                        " , nombre = '" + nombreEquipo +
+                        "' , email = '" + emailEquipo +
+                        "' , telefono = " + telefonoEquipo +
+                        " , fecha_fundacion = " + fechaFundacion +
+                        " , fecha_primera_division = " + fechaPrimeraDivision +
+                        " , presidente_apellido_nombre = '" + presidenteANEquipo +
+                        "' , categoria = '" + categoriaEquipo +
+                        "' WHERE cuit_equipo = " + cuit;
+                instruccion.execute(sql);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -159,11 +197,6 @@ public class EquipoDaoImpl implements EquipoDao{
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void readEquipoPorNombre(String nombre) {
-
     }
 
     @Override

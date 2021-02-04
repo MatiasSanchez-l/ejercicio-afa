@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public interface EquipoServicio {
     public void insert(EquipoDto equipoDto);
     public void insertEquipoConDireccion(EquipoDto equipoDto, DireccionDto direccionDto);
-    public void update(EquipoDto equipoDto);
+    public void update(EquipoDto equipoDto, Integer cuit);
     public void read();
     public void delete(Integer cuit);
 

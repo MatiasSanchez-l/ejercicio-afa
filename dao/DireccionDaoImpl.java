@@ -1,10 +1,14 @@
 package ejercicio.dao;
 
 import ejercicio.model.Direccion;
+import ejercicio.model.HistorialJugador;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DireccionDaoImpl implements  DireccionDao{
     private Conecxion conection = new Conecxion();
@@ -49,12 +53,81 @@ public class DireccionDaoImpl implements  DireccionDao{
 
     @Override
     public void update(Direccion direccion) {
+        Connection conneccion = null;
+        try{
+            conneccion = conection.conection();
 
+            try (Statement instruccion = conneccion.createStatement()){
+                String dirCalle = direccion.getCalle();
+                Integer dirNro = direccion.getNumero();
+                String dirLocalidad = direccion.getLocalidad();
+                String dirProvincia = direccion.getProvincia();
+                Integer id = this.obtenerIdDireccion(direccion);
+
+                String sql = "UPDATE direccion SET calle = '" + dirCalle +
+                        "' , nro = " + dirNro +
+                        " , provincia = '" + dirProvincia +
+                        "' , localidad = '" + dirLocalidad +
+                        "' WHERE id_direccion = " + id;
+                instruccion.execute(sql);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
-    public void read(Direccion direccion) {
+    public void read() {
+        Connection conneccion = null;
+        try{
+            conneccion = conection.conection();
 
+            try (Statement instruccion = conneccion.createStatement()){
+                ResultSet resultado = instruccion.executeQuery("SELECT * FROM direccion;");
+                List<Direccion> direcciones= new ArrayList<>();
+                while (resultado.next()) {
+                    String dirCalle = resultado.getString("calle");
+                    Integer dirNro = resultado.getInt("nro");
+                    String dirLocalidad = resultado.getString("localidad");
+                    String dirProvincia = resultado.getString("provincia");
+
+
+                    Direccion direccion = new Direccion(dirCalle, dirNro,
+                            dirLocalidad, dirProvincia);
+
+                    direcciones.add(direccion);
+                }
+
+                for (Direccion direccion: direcciones) {
+                    System.out.println(direccion.toString());
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

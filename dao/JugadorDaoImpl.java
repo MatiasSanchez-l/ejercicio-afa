@@ -110,8 +110,61 @@ public class JugadorDaoImpl implements JugadorDao{
     }
 
     @Override
-    public void update(Jugador jugador) {
+    public void update(Jugador jugador, Integer dni) {
+        Connection conneccion = null;
+        try{
+            conneccion = conection.conection();
 
+            try (Statement instruccion = conneccion.createStatement()){
+
+                Integer dniJugador = jugador.getDni();
+                String nombreJugador = jugador.getNombre();
+                String apellidoJugador = jugador.getApellido();
+                String emailJugador = jugador.getEmail();
+                Integer telefonoJugador = jugador.getTelefono();
+
+                String sqlPersona = "UPDATE persona SET dni = " + dniJugador +
+                        " , nombre = '" + nombreJugador +
+                        "' , apellido = '" + apellidoJugador +
+                        "' , email = '" + emailJugador +
+                        "' , telefono = " + telefonoJugador +
+                        " WHERE dni = " + dni;
+
+                instruccion.execute(sqlPersona);
+
+                LocalDate fechaDebutJugador = jugador.getFechaDebut();
+                Integer cantidadPartidosJugador = jugador.getCantidadPartidos();
+                LocalDate fechaNacimientoJugador= jugador.getFechaNacimiento();
+                Integer cantidadGolesJugador = jugador.getCantidadGoles();
+                Float pesoJugador = jugador.getPeso();
+                Float alturaJugador = jugador.getAltura();
+
+                String sqlJugador = "UPDATE jugador SET dni = " + dniJugador +
+                        " , fecha_debut = '" + fechaDebutJugador +
+                        "' , cant_partidos = " + cantidadPartidosJugador +
+                        " , fecha_nacimiento = '" + fechaNacimientoJugador +
+                        "' , cant_goles = " + cantidadGolesJugador +
+                        " , peso = " + pesoJugador +
+                        " , altura = " + alturaJugador +
+                        " WHERE dni = " + dni;
+
+                instruccion.execute(sqlJugador);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(conneccion != null){
+            try{
+                conneccion.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

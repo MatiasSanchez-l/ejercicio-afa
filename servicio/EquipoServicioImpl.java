@@ -37,8 +37,14 @@ public class EquipoServicioImpl implements EquipoServicio{
     }
 
     @Override
-    public void update(EquipoDto equipoDto) {
+    public void update(EquipoDto equipoDto, Integer cuit) {
+        Equipo equipo = this.convertirEquipoDtoAModel(equipoDto);
 
+        try {
+            equipoDao.update(equipo, cuit);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

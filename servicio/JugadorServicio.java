@@ -7,7 +7,7 @@ import ejercicio.model.Jugador;
 public interface JugadorServicio {
     public void insert(JugadorDto jugadorDto);
     public void insertJugadorConDireccion(JugadorDto jugadorDto, DireccionDto direccionDto);
-    public void update(JugadorDto jugadorDto);
+    public void update(JugadorDto jugadorDto, Integer dni);
     public void read();
     public void delete(Integer dni);
 
